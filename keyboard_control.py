@@ -4,7 +4,7 @@ import car
 
 def on_press(key):
     if key.char == 'w':
-        car.foward(0.5)
+        car.forward(0.5)
     try:
         print('alphanumeric key {0} pressed'.format(
             key.char))
