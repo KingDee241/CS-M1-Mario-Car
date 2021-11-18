@@ -1,15 +1,27 @@
-from tkinter import Tk, Label
+from pynput import keyboard
 import car
 
-root = Tk()
 
+def on_press(key):
+    if key.char == 'w':
+        car.foward(0.5)
+    try:
+        print('alphanumeric key {0} pressed'.format(
+            key.char))
+    except AttributeError:
+        print('special key {0} pressed'.format(
+            key))
 
-def key_pressed(event):
-    w = Label(root, text="Key Pressed:"+event.char)
-    if event.char == 'w':
-        car.forward()
-    w.place(x=70, y=90)
+def on_release(key):
+    print('{0} released'.format(
+        key))
+    if key == keyboard.Key.esc:
+        # Stop listener
+        return False
 
-
-root.bind("<Key>", key_pressed)
-root.mainloop()
+# Collect events until released
+with keyboard.Listener(
+        on_press=on_press,
+        on_release=on_release) as listener:
+    listener.join()
+   
