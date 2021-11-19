@@ -1,12 +1,15 @@
 from pynput import keyboard
 import car
 from car.motors import set_throttle, set_steering
+import music
+import threading
 
 key_to_speed = {'w': 20, 's': -20}
 key_to_speed_caps = {'w': 30, 's': -30}
 key_to_steer = {'a': +45, 'd': -45}
 
 speedy = False
+
 
 def on_press(key):
     global speedy
@@ -16,6 +19,9 @@ def on_press(key):
         key_char = key.char.lower()
     except:
         return
+    if key_char == 'm':
+        x = threading.Thread(target=music.coconut_mall)
+        x.start()
     speed_dict = key_to_speed
     if speedy:
         speed_dict = key_to_speed_caps
@@ -32,6 +38,7 @@ def on_press(key):
         print('special key {0} pressed'.format(
             key))
 
+        
 def on_release(key):
     print('{0} released'.format(
         key))
@@ -49,6 +56,7 @@ def on_release(key):
         # Stop listener
         return False
 
+    
 # Collect events until released
 with keyboard.Listener(
         on_press=on_press,
