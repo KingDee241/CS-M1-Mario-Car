@@ -2,15 +2,24 @@ from pynput import keyboard
 import car
 from car.motors import set_throttle, set_steering
 
-key_to_speed = {'w': 20, 's': 20}
+key_to_speed = {'w': 20, 's': -20}
+key_to_speed_caps = {'w': 40, 's': -40}
 key_to_steer = {'a': +45, 'd': -45}
 
 def on_press(key):
-    if key.char in key_to_speed:
-        set_throttle(key_to_speed[key.char])
-    if key.char in key_to_steer:
-        set_steering(key_to_steer[key.char])
-    if key.char == 't':
+    try:
+        key_char = key.char.lower()
+    except:
+        return
+    speed_dict = key_to_speed
+    if keyboard.Controller.shift_pressed:
+        speed_dict = key_to_speed_caps
+    
+    if key_char in key_to_speed:
+        set_throttle(speed_dict[key_char])
+    elif key_char in key_to_steer:
+        set_steering(key_to_steer[key_char])
+    elif key_char == 't':
         car.print(input())
     try:
         print('alphanumeric key {0} pressed'.format(
@@ -22,6 +31,10 @@ def on_press(key):
 def on_release(key):
     print('{0} released'.format(
         key))
+    try:
+        key.char
+    except:
+        return
     if key.char in key_to_speed:
         set_throttle(0)
     if key.char in key_to_steer:
