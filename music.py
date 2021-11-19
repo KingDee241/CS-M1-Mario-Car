@@ -19,3 +19,10 @@ def coconut_mall():
   buzz.play(mall2)
   buzz.play(mall3)
   buzz.play(mall4)
+
+def ice_cream_man():
+    part1 = "T90 L16 O5 C#O4B MSA8 MLAB A E C# D E F# E C# E"
+    part2 = "T90 ML L16 O4 AO4B O5MSC#8 C#8 ML O5C#O4BO4AB MSL8O5C# O4B8 B8"
+    buzz.play(part1)
+    buzz.play(part2)
+    buzz.play(part1)
