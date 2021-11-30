@@ -22,6 +22,9 @@ def on_press(key):
     if key_char == 'm':
         x = threading.Thread(target=music.coconut_mall)
         x.start()
+    if key_char == 'i':
+        x = threading.Thread(target=music.ice_cream_man)
+        x.start()
     speed_dict = key_to_speed
     if speedy:
         speed_dict = key_to_speed_caps
